@@ -58,3 +58,10 @@ class CheckerTest(unittest.TestCase):
 
         checker.update_list('/', data)
         self.assertEqual(len(checker.url_to_check), 18)
+
+    def test_check(self):
+        """Test for the method check."""
+        # You should create a server
+        checker = Checker('http://localhost:8000')
+        checker.run()
+        self.assertEqual(len(checker.broken_url), 1)
