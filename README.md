@@ -74,6 +74,7 @@ If you want run the tests, use this command
 
 ```bash
 python3 -m unittest tests
+./tests/checker_test.sh
 ```
 
 # License
