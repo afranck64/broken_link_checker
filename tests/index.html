@@ -6,15 +6,34 @@
     <title>Test Page</title>
 </head>
 <body>
-    <!-- can use HTTPD for general server -->
-    <a href="/">I redirect to this page</a>
-    <a href="/#2" id=2>I redirect to this page</a>
-    <a href="/#3?toto" id=3>I redirect to this page</a>
-    <a href="/index.html">I redirect to this page</a>
-    <a href="/index.html#">I redirect to this page</a>
-    <a href="/index.html?eee">I redirect to this page</a>
-    <a href="">I redirect to this page</a>
-    <a href="#5" id=5>I redirect to this page</a>
+    <!-- Risk of recursive check -->
+    <!-- We represent the same URL -->
+    <a href="/">Hello, i am home</a>
+    <a href="/#2" id=2>Me again</a>
+    <a href="/#3?toto" id=3>Me again</a>
+    <a href="/home">Me again</a>
+    <a href="/home#">Me again</a>
+    <a href="/home?eee">Me again</a>
+    <a href="">Me again</a>
+    <a href="#5" id=5>Me again</a>
+    <!-- We are broken -->
     <a href="/abc">I am a 404 error</a>
+    <a href="/error">I am a 500 error</a>
+    <a href="/wait">Wait me forever</a>
+    <!-- Me, I am different -->
+    <!-- I am not broken -->
+    <!-- Why? https://searchfacts.com/url-trailing-slash -->
+    <!-- We want show the difference -->
+    <a href="/abc/">I works</a>
+    <!-- I am an empty page -->
+    <a href="/empty">Empty</a>
+    <!-- I am null -->
+    <a href="/null">I am null</a>
+    <!-- html page -->
+    <a href="/html">html</a>
+    <!-- rss page -->
+    <a href="/rss">rss</a>
+    <!-- html page -->
+    <a href="/html/">Another html</a>
 </body>
 </html>
