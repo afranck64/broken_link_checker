@@ -114,7 +114,7 @@ class Checker:
                     maxsize=1,
                 )
                 response = tmp_conn.request(
-                    'CONNECT',
+                    'HEAD',
                     '/',
                     preload_content=False
                 )
