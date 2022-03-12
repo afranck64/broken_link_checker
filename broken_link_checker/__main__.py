@@ -74,6 +74,8 @@ def main(args):
                         help='It represent the email server used to send the report')
     parser.add_argument('-r', '--recipient', type=str,
                         help='It represent the email where send the report')
+    parser.add_argument('-n', '--deep-scan', type=bool,
+                        help='Enable the deep scan')
     args = parser.parse_args()
 
     # We verify the dependency
@@ -89,6 +91,7 @@ def main(args):
     checker = Checker(
         args.host,
         delay=args.delay if args.delay is not None else 1.0,
+        deep_scan=True if args.deep_scan.lower() == 'true' else False
     )
 
     # We initialize the notifier
