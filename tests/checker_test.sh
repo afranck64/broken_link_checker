@@ -4,7 +4,7 @@
 # NB: The purpose of this script is
 # to verify the working of the checker on a real web server.
 
-NB_BROKEN_LINK_EXPECTED=21
+NB_BROKEN_LINK_EXPECTED=22
 HOST=localhost
 PORT=8080
 counter=5
@@ -34,8 +34,12 @@ start_server() {
 
 # We start the test
 start_test() {
-    if [ ! $(python3 broken_link_checker -H http://$HOST:$PORT -d 0 -D true\
-     | grep -c '^/') -eq $NB_BROKEN_LINK_EXPECTED ]; then
+    report=$(python3 broken_link_checker -H http://$HOST:$PORT -d 0 -D true)
+    if [ ! $(echo "$report" | grep -c '^/') -eq $NB_BROKEN_LINK_EXPECTED ]; then
+        echo "$NB_BROKEN_LINK_EXPECTED broken links expected"
+        echo "REPORT:"
+        echo "$report"
+        echo 'LOG:'
         # We show the logging for debugging
         cat logging.log
     fi

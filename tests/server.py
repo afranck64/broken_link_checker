@@ -72,6 +72,18 @@ class MyServer(BaseHTTPRequestHandler):
 
             with open(path+'/data2.html', 'rb') as f:
                 self.wfile.write(f.read())
+        elif self.path.replace('/', '').isdigit():
+            self.send_response(int(self.path.replace('/', '')))
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
+        elif self.path == '/good':
+            self.send_response(301)
+            self.send_header('Location', '/201')
+            self.end_headers()
+        elif self.path == '/bad':
+            self.send_response(301)
+            self.send_header('Location', '/401')
+            self.end_headers()
         else:
             self.send_response(404)
             self.end_headers()
