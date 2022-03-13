@@ -8,7 +8,6 @@ from urllib.parse import urljoin
 import time
 import logging
 import re
-from http import HTTPStatus
 
 # We change the log level for urllib3’s logger
 logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -74,12 +73,6 @@ class Checker:
             re.IGNORECASE
         )
 
-        # We build a dict of HTTPStatus code
-        # We want more descriptive http status
-        self.http_status = {}
-        for http_status in HTTPStatus:
-            self.http_status[http_status.value] = http_status.description
-
     def check(self, url: str) -> urllib3.response.HTTPResponse | None:
         """
         Verify if a link is broken of not.
@@ -114,7 +107,7 @@ class Checker:
         if int(response.status / 100) == 2:
             return response if self.conn.is_same_host(url) else None
         else:
-            self.broken_url[url] = self.http_status[response.status]
+            self.broken_url[url] = response.status
             self.logging.warning(
                 '%s maybe broken because status code: %i' %
                 (url, response.status)
